@@ -1,4 +1,4 @@
-package javaapplication23;
+package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
