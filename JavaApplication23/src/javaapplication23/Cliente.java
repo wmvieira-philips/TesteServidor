@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 
-public class NewClass {
+public class Cliente {
 
     public static void main(String[] args) {
         try {
