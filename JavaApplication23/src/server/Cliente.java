@@ -6,15 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-
 public class Cliente {
 
     public static void main(String[] args) {
         try {
             Socket s = new Socket("10.125.1.32", 1234);
 
-            
-            
             InputStreamReader p = new InputStreamReader(System.in);
             BufferedReader red = new BufferedReader(p);
 
@@ -30,7 +27,7 @@ public class Cliente {
             out.close();
             s.close();
         } catch (IOException ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 }

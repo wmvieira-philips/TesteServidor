@@ -1,5 +1,6 @@
 package server;
 
+import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +9,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 public final class Servidor {
 
@@ -15,16 +17,23 @@ public final class Servidor {
     private ServerSocket servidor;
     private HashMap<String, BufferedReader> map = new HashMap<String, BufferedReader>();
     private String remetente;
+    private JTextArea text;
 
-    public void ConectaServidor() throws IOException {
+    public Servidor(JTextArea t) {
+        this.text = t;
+    }
+    
+    
+    public void conectaServidor() {
         try {
             servidor = new ServerSocket(1234);
-            System.out.println("Servidor ouvindo a porta 1234");
+            text.setText("Servidor ouvindo a porta 1234");
 
             while (true) {
                 cliente = servidor.accept();
                 remetente = cliente.getInetAddress().getHostAddress();
-                System.out.println("Cliente conectado: " + remetente);
+                text.setText(text.getText() + "\nCliente conectado: " + remetente);
+                
                 map.put(remetente, new BufferedReader(new InputStreamReader(cliente.getInputStream())));
                 recebeMensagem(remetente);
             }
@@ -35,7 +44,7 @@ public final class Servidor {
         }
     }
 
-    public void recebeMensagem(String i) {
+    private void recebeMensagem(String i) {
 
         Thread p = new Thread(new Runnable() {
             @Override
@@ -52,9 +61,5 @@ public final class Servidor {
             }
         });
         p.start();
-    }
-
-    public static void main(String[] args) throws IOException {
-        Servidor servidor1 = new Servidor();
     }
 }
